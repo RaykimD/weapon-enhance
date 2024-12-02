@@ -187,10 +187,11 @@ export default function Home() {
                         {drinkUsed && <span className="text-amber-400 text-sm"> (강화주 +1%)</span>}
                       </p>
                       {weapon.enhancement >= 5 && (
-                        <p>파괴 확률: {ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel].destroy}%</p>
-                        <p>하락 확률: {ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel].degrade}%</p>
-                    </div>
-                  )}
+                          <>
+                              <p>파괴 확률: {ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel].destroy}%</p>
+                              <p>하락 확률: {ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel].degrade}%</p>
+                          </>
+                    )}
                 </div>
               ) : (
                 <div className="text-center text-gray-400">
