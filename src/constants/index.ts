@@ -14,3 +14,47 @@ export const ENHANCEMENT_RATES: Record<EnhancementLevel, { success: number; dest
     10: { success: 5, destroy: 66.5, degrade: 28.5 },
     11: { success: 5, destroy: 66.5, degrade: 28.5 }
 } as const;
+
+export const STONE_TYPES = {
+    normal: {
+        name: '강화석',
+        cost: 5000,
+        successBonus: 0,
+        materials: {
+            iron: 3,
+            blackIron: 1,
+            specialIron: 1,
+            lapis: 5
+        }
+    },
+    advanced: {
+        name: '상급 강화석',
+        cost: 10000,
+        successBonus: 5,
+        materials: {
+            iron: 3,
+            blackIron: 1,
+            specialIron: 1,
+            lapis: 5
+        }
+    },
+    supreme: {
+        name: '고급 강화석',
+        cost: 20000,
+        successBonus: 10,
+        materials: {
+            iron: 3,
+            blackIron: 1,
+            specialIron: 1,
+            lapis: 5
+        }
+    }
+} as const;
+
+export const WEAPON_NAMES: Record<string, string> = {
+    bow: '활',
+    sword: '검',
+    spear: '창',
+    dagger: '단검',
+    fan: '부채'
+};
