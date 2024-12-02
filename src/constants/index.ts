@@ -1,5 +1,4 @@
 export type EnhancementLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
-type EnhancementLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
 export const ENHANCEMENT_RATES: Record<EnhancementLevel, { success: number; destroy: number; degrade: number }> = {
     0: { success: 95, destroy: 0, degrade: 2.5 },
