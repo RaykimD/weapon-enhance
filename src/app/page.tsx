@@ -183,7 +183,7 @@ export default function Home() {
                   </p>
                   {weapon.enhancement < 12 && (
                     <div className="text-gray-300">
-                      <p>성공 확률: {ENHANCEMENT_RATES[weapon.enhancement].success + (drinkUsed ? 1 : 0)}%
+                      <p>성공 확률: {ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel].success + (drinkUsed ? 1 : 0)}%
                         {drinkUsed && <span className="text-amber-400 text-sm"> (강화주 +1%)</span>}
                       </p>
                       {weapon.enhancement >= 5 && (
