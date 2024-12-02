@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { Weapon, EnhanceLog, UsedResources, Stats } from '../types';
-import { ENHANCEMENT_RATES, STONE_TYPES, WEAPON_NAMES } from '../constants';
+import { ENHANCEMENT_RATES, STONE_TYPES, WEAPON_NAMES, EnhancementLevel } from '../constants';
 
 export default function Home() {
   const [weapon, setWeapon] = useState<Weapon | null>(null);
