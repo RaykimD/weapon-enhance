@@ -60,7 +60,7 @@ export const WEAPON_NAMES: Record<string, string> = {
 };
 
 export const WEAPON_STATS = {
-    base: 5,  
+    base: 5,  // 기본 공격력
     enhancement: {
         1: 1,
         2: 1,
