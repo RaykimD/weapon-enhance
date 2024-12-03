@@ -1,7 +1,17 @@
 'use client';
 import React, { useState } from 'react';
 import { Weapon, EnhanceLog, UsedResources, Stats } from '../types';
-import { ENHANCEMENT_RATES, STONE_TYPES, WEAPON_NAMES } from '../constants';
+import { ENHANCEMENT_RATES, STONE_TYPES, WEAPON_NAMES, WEAPON_STATS } from '../constants';
+import Link from 'next/link';
+
+// 공격력 계산 함수 추가
+const calculateAttackPower = (enhancement: number) => {
+  let additionalPower = 0;
+  for (let i = 1; i <= enhancement; i++) {
+    additionalPower += WEAPON_STATS.enhancement[i as keyof typeof WEAPON_STATS.enhancement] || 0;
+  }
+  return WEAPON_STATS.base + additionalPower;
+};
 
 export default function Home() {
   const [weapon, setWeapon] = useState<Weapon | null>(null);
@@ -28,7 +38,6 @@ export default function Home() {
     money: 0
   });
 
-  // 추가
   const [drinkUsed, setDrinkUsed] = useState<boolean>(false);
 
   const addEnhanceLog = (type: 'success' | 'degrade' | 'maintain' | 'destroy', enhancement: number) => {
@@ -82,7 +91,7 @@ export default function Home() {
     }));
 
     // 강화 시도
-    const rates = ENHANCEMENT_RATES[weapon.enhancement as keyof typeof ENHANCEMENT_RATES];
+    const rates = ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel];
     const successRate = rates.success + stoneCost.successBonus + (drinkUsed ? 1 : 0);
     const roll = Math.random() * 100;
 
@@ -135,9 +144,9 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 p-4">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
-          <button className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
+          <Link href="https://kochang-simulator.onrender.com/" className="text-gray-400 hover:text-white text-sm transition-colors duration-200">
             ← 돌아가기
-          </button>
+          </Link>
           <h1 className="text-3xl font-bold text-white text-center">코창서버 무기 강화 시뮬레이터</h1>
           <button
             onClick={() => {
@@ -180,16 +189,24 @@ export default function Home() {
                 <div className="text-center">
                   <p className="text-2xl font-bold text-white mb-4">
                     {weapon.enhancement}강 {WEAPON_NAMES[weapon.type]}
+                    {weapon.enhancement === 12 && <span className="text-sm text-gray-400 ml-2">(예상)</span>}
                   </p>
+                  <div className="text-gray-300 mb-4">
+                    <p>공격력: {calculateAttackPower(weapon.enhancement)}
+                      <span className="text-sm text-gray-500 ml-2">
+                        (기본 {WEAPON_STATS.base} + 강화 {calculateAttackPower(weapon.enhancement) - WEAPON_STATS.base})
+                      </span>
+                    </p>
+                  </div>
                   {weapon.enhancement < 12 && (
                     <div className="text-gray-300">
                       <p>성공 확률: {ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel].success + (drinkUsed ? 1 : 0)}%
                         {drinkUsed && <span className="text-amber-400 text-sm"> (강화주 +1%)</span>}
                       </p>
                       {weapon.enhancement >= 5 && (
-                        <p>파괴 확률: {ENHANCEMENT_RATES[weapon.enhancement].destroy}%</p>
+                        <p>파괴 확률: {ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel].destroy}%</p>
                       )}
-                      <p>하락 확률: {ENHANCEMENT_RATES[weapon.enhancement].degrade}%</p>
+                      <p>하락 확률: {ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel].degrade}%</p>
                     </div>
                   )}
                 </div>
@@ -258,6 +275,57 @@ export default function Home() {
 
           {/* 오른쪽 섹션 */}
           <div className="space-y-6">
+            {/* 강화 등급 이동 UI */}
+            <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
+              <h2 className="text-2xl font-bold text-white mb-4">강화 등급 이동</h2>
+              <div className="flex items-center space-x-4">
+                <button
+                  onClick={() => {
+                    if (weapon && weapon.enhancement > 0) {
+                      setWeapon(prev => prev && ({
+                        ...prev,
+                        enhancement: prev.enhancement - 1
+                      }));
+                    }
+                  }}
+                  className="text-white hover:text-gray-300"
+                  disabled={!weapon || weapon.enhancement <= 0}
+                >
+                  &lt;
+                </button>
+                <select
+                  value={weapon?.enhancement || 0}
+                  onChange={(e) => {
+                    const newEnhancement = Number(e.target.value);
+                    setWeapon(prev => prev && ({
+                      ...prev,
+                      enhancement: newEnhancement
+                    }));
+                  }}
+                  className="bg-gray-700 text-white px-4 py-2 rounded-lg flex-grow text-center"
+                  disabled={!weapon}
+                >
+                  {Array.from({ length: 13 }, (_, i) => (
+                    <option key={i} value={i}>{i}강{i === 12 ? ' (예상)' : ''}</option>
+                  ))}
+                </select>
+                <button
+                  onClick={() => {
+                    if (weapon && weapon.enhancement < 12) {
+                      setWeapon(prev => prev && ({
+                        ...prev,
+                        enhancement: prev.enhancement + 1
+                      }));
+                    }
+                  }}
+                  className="text-white hover:text-gray-300"
+                  disabled={!weapon || weapon.enhancement >= 12}
+                >
+                  &gt;
+                </button>
+              </div>
+            </div>
+
             {/* 강화 로그 */}
             <div className="bg-gray-800 rounded-xl p-6 border border-gray-700">
               <h2 className="text-2xl font-bold text-white mb-4">강화 로그</h2>

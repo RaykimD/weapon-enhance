@@ -1,4 +1,4 @@
-type EnhancementLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
+export type EnhancementLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
 
 export const ENHANCEMENT_RATES: Record<EnhancementLevel, { success: number; destroy: number; degrade: number }> = {
     0: { success: 95, destroy: 0, degrade: 2.5 },
@@ -6,13 +6,13 @@ export const ENHANCEMENT_RATES: Record<EnhancementLevel, { success: number; dest
     2: { success: 75, destroy: 0, degrade: 12.5 },
     3: { success: 65, destroy: 0, degrade: 17.5 },
     4: { success: 55, destroy: 0, degrade: 22.5 },
-    5: { success: 45, destroy: 38.5, degrade: 16.5 },
-    6: { success: 35, destroy: 45.5, degrade: 19.5 },
-    7: { success: 25, destroy: 52.5, degrade: 22.5 },
-    8: { success: 15, destroy: 59.5, degrade: 25.5 },
-    9: { success: 10, destroy: 63, degrade: 27 },
-    10: { success: 5, destroy: 66.5, degrade: 28.5 },
-    11: { success: 5, destroy: 66.5, degrade: 28.5 }
+    5: { success: 45, destroy: 27.5, degrade: 27.5 },
+    6: { success: 35, destroy: 32.5, degrade: 32.5 },
+    7: { success: 25, destroy: 37.5, degrade: 37.5 },
+    8: { success: 15, destroy: 42.5, degrade: 42.5 },
+    9: { success: 10, destroy: 45, degrade: 45 },
+    10: { success: 5, destroy: 47.5, degrade: 47.5 },
+    11: { success: 5, destroy: 47.5, degrade: 47.5 }
 } as const;
 
 export const STONE_TYPES = {
@@ -58,3 +58,21 @@ export const WEAPON_NAMES: Record<string, string> = {
     dagger: '단검',
     fan: '부채'
 };
+
+export const WEAPON_STATS = {
+    base: 5,  
+    enhancement: {
+        1: 1,
+        2: 1,
+        3: 1,
+        4: 1,
+        5: 1,
+        6: 1,
+        7: 1,
+        8: 2,
+        9: 2,
+        10: 2,
+        11: 3,
+        12: 3
+    }
+} as const;
