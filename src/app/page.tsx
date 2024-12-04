@@ -91,7 +91,8 @@ export default function Home() {
     }));
 
     // 강화 시도
-    const rates = ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel];
+    const enhancementLevel = weapon.enhancement as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+    const rates = ENHANCEMENT_RATES[enhancementLevel];
     const successRate = rates.success + stoneCost.successBonus + (drinkUsed ? 1 : 0);
     const roll = Math.random() * 100;
 
