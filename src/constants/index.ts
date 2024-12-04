@@ -1,4 +1,4 @@
-export type EnhancementLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
+export type EnhancementLevel = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export const ENHANCEMENT_RATES: Record<EnhancementLevel, { success: number; destroy: number; degrade: number }> = {
     0: { success: 95, destroy: 0, degrade: 2.5 },
@@ -13,6 +13,7 @@ export const ENHANCEMENT_RATES: Record<EnhancementLevel, { success: number; dest
     9: { success: 10, destroy: 45, degrade: 45 },
     10: { success: 5, destroy: 47.5, degrade: 47.5 },
     11: { success: 5, destroy: 47.5, degrade: 47.5 }
+    12: { success: 0, destroy: 0, degrade: 0 }
 } as const;
 
 export const STONE_TYPES = {
