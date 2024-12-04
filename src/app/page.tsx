@@ -201,13 +201,21 @@ export default function Home() {
                   </div>
                   {weapon.enhancement < 12 && (
                     <div className="text-gray-300">
-                      <p>성공 확률: {ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel].success + (drinkUsed ? 1 : 0)}%
-                        {drinkUsed && <span className="text-amber-400 text-sm"> (강화주 +1%)</span>}
-                      </p>
-                      {weapon.enhancement >= 5 && (
-                        <p>파괴 확률: {ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel].destroy}%</p>
-                      )}
-                      <p>하락 확률: {ENHANCEMENT_RATES[weapon.enhancement as EnhancementLevel].degrade}%</p>
+                      {(() => {
+                        const enhancementLevel = weapon.enhancement as 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+                        const rates = ENHANCEMENT_RATES[enhancementLevel];
+                        return (
+                          <>
+                            <p>성공 확률: {rates.success + (drinkUsed ? 1 : 0)}%
+                              {drinkUsed && <span className="text-amber-400 text-sm"> (강화주 +1%)</span>}
+                            </p>
+                            {weapon.enhancement >= 5 && (
+                              <p>파괴 확률: {rates.destroy}%</p>
+                            )}
+                            <p>하락 확률: {rates.degrade}%</p>
+                          </>
+                        );
+                      })()}
                     </div>
                   )}
                 </div>
