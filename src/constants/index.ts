@@ -12,7 +12,7 @@ export const ENHANCEMENT_RATES: Record<EnhancementLevel, { success: number; dest
     8: { success: 15, destroy: 42.5, degrade: 42.5 },
     9: { success: 10, destroy: 45, degrade: 45 },
     10: { success: 5, destroy: 47.5, degrade: 47.5 },
-    11: { success: 5, destroy: 47.5, degrade: 47.5 }
+    11: { success: 5, destroy: 47.5, degrade: 47.5 },
     12: { success: 0, destroy: 0, degrade: 0 }
 } as const;
 
